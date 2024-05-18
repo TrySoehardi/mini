@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="style/index.css">
+<link rel="stylesheet" href="style/modal.css">
+<link rel="stylesheet" href="style/error.css">
+<link rel="stylesheet" href="style/backdrop.css">
+<link rel="stylesheet" href="style/loading.css">
+
+<div id="app">
+    <span v-if="loading" class="loading"></span>
+    <div class="container">
+        <div class="navbar">
+            <div class="brands"><a href="/"><i class="fa fa-car"></i></a></div>
+            <div class="search">
+                <input type="text" v-model="keySearch">
+            </div>
+            <div class="button">
+                <button @click="search">Search</button>
+            </div>
+        </div>
+        <div v-if="emptyData" class="empty-data">
+            <h1>the data empty</h1>
+        </div>
+        <div class="content">
+            
+           <div v-if="!emptyData">
+            <table id="myTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Adrress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users">
+                        <td>{{user.name}}</td>
+                        <td>{{user.Phone}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.address}}</td>
+                    </tr>
+                </tbody>
+            </table>
+           </div>
+
+            <div class="button add">
+                <button v-on:click="addUser()">add</button>
+            </div>
+
+        </div>
+
+        <div class="add-wrap" v-bind:class="{show:addDisplay}">
+            <div class="add-user">
+                <div class="title">Create User</div>
+                <div class="wrap">
+                    <div class="label">Name</div>
+                    <div>
+                        <input class="search" type="text" v-model="name" :maxlength="nameMax">
+                    </div>
+                </div>
+                <div class="wrap">
+                    <div class="label">Phone</div>
+                    <div>
+                        <input class="search" type="text" v-model="phone" >
+                        <p v-bind:class="{showw:errP}" style="margin: 0;color: red;display: none;">masukan nomor dan pastikan lebih dari 11 digit</p>
+                    </div>
+                </div>
+                <div class="wrap">
+                    <div class="label">Email</div>
+                    <div>
+                        <input class="search" type="text" v-model="email" >
+                        <p v-bind:class="{showw:errE}" style="margin: 0;color: red;display: none;">email tidak benar</p>
+                    </div>
+                </div>
+                <div class="wrap address">
+                    <div class="label">Address</div>
+                    <div class="wrap-address">
+                        <div v-for="input in inputs">
+                            <span><input class="search" type="text" v-model="addres" ></span>
+                            <!-- <span v-bind:class="{show:minfield}" style="display: block;"> <button class="buttonn"><i class="fa fa-minus"></i></button></span>
+                            <span> <button @click="address()" class="buttonn"><i class="fa fa-plus"></i></button></span> -->
+                            <span><button @click="address()"><i class="fa fa-plus"></i></button></span>
+                            <span><button @click="deladdress(input)" v-bind:class="{showw:minfield}" style="background-color: red;display: none;"><i class="fa fa-minus"></i></button></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="button" style="text-align:center"><button @click="save">Save</button></div>
+            </div>    
+        </div>
+
+       <div class="error-wrap" v-bind:class="{show:error}">
+            <div class="error">
+                <div class="title-error">Error</div>
+                <div class="desk-error">
+                    {{messageError}}
+                    <div class="button">
+                        <button @click="errorStop">OKE</button>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+    <div @click="drop()" v-bind:class="{show:addDisplay}" class="backdrop" id="backdrop"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="./script/datatable.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

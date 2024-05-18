@@ -1,0 +1,23 @@
+.error-wrap{
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+}
+.error{
+    position: fixed;
+    z-index: 5;
+    background-color: rgb(224, 201, 171);
+    text-align: center;
+    top: 239px;
+}
+
+.title-error{
+    background-color: red;
+    font-size: 20px;
+}
+.desk-error{
+    background-color: white;
+    font-size: 20px;
+    padding: 50px;
+}
